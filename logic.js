@@ -213,6 +213,7 @@ function reshuffle(deck)
 {
     deck.draw_pile = deck.draw_pile.concat(deck.discard);
     deck.discard = [];
+
     for (var i = 0; i < deck.draw_pile.length; i++)
     {
         var card = deck.draw_pile[i];
@@ -229,6 +230,7 @@ function reshuffle(deck)
     }
 
     shuffle_list(deck.draw_pile);
+
 }
 
 function must_reshuffle(deck)
@@ -298,11 +300,17 @@ function draw_card(deck)
     }
 }
 
+function redraw_modifier_deck(deck)
+{
+  place_deck(deck, document.getElementById("topmenu").getElementsByClassName("card-container")[0]);
+}
+
 function draw_card_modifier(deck)
 {
     if (must_reshuffle_modifier(deck))
     {
         reshuffle(deck);
+        redraw_modifier_deck(deck);
     }
     else
     {
@@ -311,6 +319,7 @@ function draw_card_modifier(deck)
         {
             deck.shuffle_end_of_the_turn = true;
         }
+
         if (deck.discard[0].card_type == "bless")
         {
             deck.discard.splice(0);
@@ -372,18 +381,25 @@ function create_modifier_card(card_type)
 
 }
 
-function add_bless_to_discard(deck)
+function add_bless_to_deck(deck)
 {
     deck.draw_pile.push(define_modifier_card(false, "bless"));
     deck.bless_count++;
     shuffle_list(deck.draw_pile);
+    redraw_modifier_deck(deck);
+    console.log("Total number of bless is " + deck.bless_count);
+    return deck;
 }
 
-function add_curse_to_discard(deck)
+function add_curse_to_deck(deck)
 {
     deck.draw_pile.push(define_modifier_card(false, "curse"));
     deck.curse_count++;
+    console.log("Total number of curses is " + deck.curse_count);
+    redraw_modifier_deck(deck);
     shuffle_list(deck.draw_pile);
+
+    return deck;
 }
 
 function click_end_of_turn(deck)
@@ -419,15 +435,22 @@ function create_input(type, name, value, text)
     return listitem;
 }
 
+function create_button(type, name, value)
+{
+  var button = document.createElement("input");
+  button.type = type;
+  button.name = name;
+  button.value = value;
+
+  return button;
+}
+
 function apply_deck_selection(decks)
 {
     var container = document.getElementById("tableau");
     var modifier_container = document.getElementById("topmenu");
     container.innerHTML = ""; // TODO use deck.discard_deck instead
-    modifier_container.innerHTML = ""; 
-
-    //TO FIX! this is for testing, but it should be always added as a deck, and it's own div (with buttons)
-    add_modifier_deck(modifier_container);
+    modifier_container.innerHTML = "";
 
     for (var i = 0; i < decks.length; i++)
     {
@@ -445,6 +468,10 @@ function apply_deck_selection(decks)
             container.removeChild(deck_space);
         }
     }
+
+    //TO FIX! this is for testing, but it should be always added as a deck, and it's own div (with buttons)
+    add_modifier_deck(modifier_container);
+
     // Rescale card text if necessary
     refresh_ui(decks);
 }
@@ -459,6 +486,8 @@ function add_modifier_deck(container)
     place_deck(deck, deck_space);
     reshuffle(deck);
     deck_space.onclick = draw_card_modifier.bind(null, deck);
+
+    create_top_menu_buttons(container, deck);
 
     deck.discard_deck = function()
     {
@@ -486,6 +515,18 @@ function clear_list(list)
 {
     list.splice(0, list.length);
     return list;
+}
+
+function create_top_menu_buttons(container, deck)
+{
+  var curse_button = create_button("button", "cursebutton", "Add curse");
+  container.appendChild(curse_button);
+  curse_button.onclick = add_curse_to_deck.bind(null, deck);
+
+
+  var bless_button = create_button("button", "blessbutton", "Add bless");
+  container.appendChild(bless_button);
+  bless_button.onclick = add_bless_to_deck.bind(null, deck);
 }
 
 function create_deck_list(decks)
@@ -537,7 +578,6 @@ function init()
 
     create_deck_list(decks).map( function(checkbox) { decklist.appendChild(checkbox); } );
     create_scenario_list(SCENARIO_DEFINITIONS, decks, selected_decks).map( function(radiobtn) { scenariolist.appendChild(radiobtn); } );
-
     applydeckbtn.onclick = function()
     {
         var checkboxes = document.getElementsByName("deck");
