@@ -779,7 +779,7 @@ function DeckList(decks)
     return decklist;
 }
 
-function ScenarioList(scenarios)
+function ScenarioList(scenarios, solo=false)
 {
     var scenariolist = {};
     scenariolist.ul = document.createElement("ul");
@@ -794,7 +794,8 @@ function ScenarioList(scenarios)
     }
 
     var listitem = document.createElement("li");
-    listitem.innerText = "Select scenario number";
+
+    listitem.innerText = solo ? "Select solo scenario number" : "Select scenario number";
     scenariolist.ul.appendChild(listitem);
 
     var scenario_spinner = create_input("number", "scenario_number", "1", "");
@@ -826,12 +827,15 @@ function init()
     var scenariospage = document.getElementById("scenariospage");
     var applydeckbtn = document.getElementById("applydecks");
     var applyscenariobtn = document.getElementById("applyscenario");
+    var applyssolocenariobtn = document.getElementById("applysoloscenario");
 
     var decklist = new DeckList(decks);
     var scenariolist = new ScenarioList(SCENARIO_DEFINITIONS);
+    var soloscenariolist = new ScenarioList(SOLO_SCENARIO_DEFINITIONS, solo=true);
 
     deckspage.insertAdjacentElement("afterbegin", decklist.ul);
     scenariospage.insertAdjacentElement("afterbegin", scenariolist.ul);
+    scenariospage.insertAdjacentElement("beforeend", soloscenariolist.ul);
 
     applydeckbtn.onclick = function()
     {
@@ -848,6 +852,22 @@ function init()
     applyscenariobtn.onclick = function()
     {
         var selected_deck_names = scenariolist.get_scenario_decks();
+        var selected_decks = selected_deck_names.map( function(deck_names)
+                                                {
+                                                    var deck = decks[deck_names.deck_name];
+                                                    if (deck_names.deck_name != deck_names.name)
+                                                    {
+                                                        deck.set_real_name(deck_names.name);
+                                                    }
+                                                    return deck;
+                                                } );
+        decklist.set_selection(selected_decks.map( function(deck) { return deck.name; } ));
+        apply_deck_selection(selected_decks, false);
+    };
+
+    applyssolocenariobtn.onclick = function()
+    {
+        var selected_deck_names = soloscenariolist.get_scenario_decks();
         var selected_decks = selected_deck_names.map( function(deck_names)
                                                 {
                                                     var deck = decks[deck_names.deck_name];

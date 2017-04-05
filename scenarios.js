@@ -765,3 +765,18 @@ SCENARIO_DEFINITIONS =
         }
 
     ];
+
+SOLO_SCENARIO_DEFINITIONS =
+    [   { name: "#1 Just another night"
+        , decks:
+            [   {"name": "Guard", "deck_name": "Guard"}
+            ,   {"name": "Archer", "deck_name": "Archer"}
+            ,   {"name": "Inox Shaman", "deck_name": "Shaman"}
+            // TODO How are we going to display this? We have several guards/Archers
+            //,   {"name": "Bandit Guard", "deck_name": "Guard" }
+            //,   {"name": "Bandit Archer", "deck_name": "Archer" }
+            //,   {"name": "Inox Guard", "deck_name": "Guard" }
+            //,   {"name": "Inox Archer", "deck_name": "Archer" }
+            ]
+        }
+    ]
