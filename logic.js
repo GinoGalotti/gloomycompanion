@@ -762,12 +762,13 @@ function DeckList(decks)
     return decklist;
 }
 
-function ScenarioList(scenarios)
+function ScenarioList(scenarios, name)
 {
     var scenariolist = {};
     scenariolist.ul = document.createElement("ul");
     scenariolist.ul.className = "selectionlist";
     scenariolist.spinner = null;
+    scenariolist.applybtn = null;
     scenariolist.decks = {};
 
     for (var i = 0; i < scenarios.length; i++)
@@ -777,7 +778,7 @@ function ScenarioList(scenarios)
     }
 
     var listitem = document.createElement("li");
-    listitem.innerText = "Select scenario number";
+    listitem.innerText = "Select " + name + " number";
     scenariolist.ul.appendChild(listitem);
 
     var scenario_spinner = create_input("number", "scenario_number", "1", "");
@@ -798,6 +799,10 @@ function ScenarioList(scenarios)
         return this.decks[this.get_selection()];
     }
 
+    var apply_button = create_input("button", "scenarioapplybtn", "Apply");
+    scenariolist.button = apply_button.input;
+    scenariolist.ul.appendChild(apply_button.input);
+
     return scenariolist;
 }
 
@@ -808,14 +813,15 @@ function init()
     var deckspage = document.getElementById("deckspage");
     var scenariospage = document.getElementById("scenariospage");
     var applydeckbtn = document.getElementById("applydecks");
-    var applyscenariobtn = document.getElementById("applyscenario");
 
     var decklist = new DeckList(decks);
-    var scenariolist = new ScenarioList(SCENARIO_DEFINITIONS);
+    var scenariolist = new ScenarioList(SCENARIO_DEFINITIONS, "scenario");
+    var ksscenariolist = new ScenarioList(KICKSTARTER_SCENARIO_DEFINITIONS, "KS scenario");
 
     deckspage.insertAdjacentElement("afterbegin", decklist.ul);
     scenariospage.insertAdjacentElement("afterbegin", scenariolist.ul);
-    
+    scenariospage.insertAdjacentElement("beforeend", ksscenariolist.ul);
+
     applydeckbtn.onclick = function()
     {
         var selected_deck_names = decklist.get_selection();
@@ -828,9 +834,25 @@ function init()
         apply_deck_selection(selected_decks, true);
     };
 
-    applyscenariobtn.onclick = function()
+    scenariolist.button.onclick = function()
     {
         var selected_deck_names = scenariolist.get_scenario_decks();
+        var selected_decks = selected_deck_names.map( function(deck_names)
+                                                {
+                                                    var deck = decks[deck_names.deck_name];
+                                                    if (deck_names.deck_name != deck_names.name)
+                                                    {
+                                                        deck.set_real_name(deck_names.name);
+                                                    }
+                                                    return deck;
+                                                } );
+        decklist.set_selection(selected_decks.map( function(deck) { return deck.name; } ));
+        apply_deck_selection(selected_decks, false);
+    };
+
+    ksscenariolist.button.onclick = function()
+    {
+        var selected_deck_names = ksscenariolist.get_scenario_decks();
         var selected_decks = selected_deck_names.map( function(deck_names)
                                                 {
                                                     var deck = decks[deck_names.deck_name];

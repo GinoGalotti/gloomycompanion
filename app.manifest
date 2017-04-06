@@ -1,6 +1,6 @@
 CACHE MANIFEST
 #
-# Version Tue Mar 28 20:17:37 UTC 2017
+# Version 10 Apr 2017 17:12:40
 #
 
 app.webmanifest
@@ -21,17 +21,17 @@ images/aoe-line-6-with-black.svg
 images/aoe-triangle-2-side.svg
 images/aoe-triangle-2-side-with-black.svg
 images/aoe-triangle-3-side-with-corner-black.svg
+images/attack.svg
 images/attack_mod_+0.jpg
-images/attack_mod_-1.jpg
 images/attack_mod_+1.jpg
-images/attack_mod_-2.jpg
 images/attack_mod_+2.jpg
+images/attack_mod_-1.jpg
+images/attack_mod_-2.jpg
 images/attack_mod_2x.jpg
 images/attack_mod_back.jpg
 images/attack_mod_bless.jpg
 images/attack_mod_curse.jpg
 images/attack_mod_null.jpg
-images/attack.svg
 images/back.jpg
 images/back.svg
 images/bless.svg
@@ -60,8 +60,8 @@ images/range.svg
 images/retaliate.svg
 images/settings.svg
 images/shield.svg
-images/shuffle-black.svg
 images/shuffle.svg
+images/shuffle-black.svg
 images/strengthen.svg
 images/stun.svg
 images/target.svg

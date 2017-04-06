@@ -764,3 +764,86 @@ SCENARIO_DEFINITIONS =
         }
 
     ];
+
+KICKSTARTER_SCENARIO_DEFINITIONS =
+    [   { name: "#1 Just another night"
+        , decks:
+            [   {"name": "Guard", "deck_name": "Guard"}
+            ,   {"name": "Archer", "deck_name": "Archer"}
+            ,   {"name": "Inox Shaman", "deck_name": "Shaman"}
+            // TODO How are we going to display this? We have several guards/Archers
+            //,   {"name": "Bandit Guard", "deck_name": "Guard" }
+            //,   {"name": "Bandit Archer", "deck_name": "Archer" }
+            //,   {"name": "Inox Guard", "deck_name": "Guard" }
+            //,   {"name": "Inox Archer", "deck_name": "Archer" }
+            ]
+        },
+        { name: "#2 A Quatryl Scorned"
+        , decks:
+            [   {"name": "Bandit Archer", "deck_name": "Archer" }
+            ,   {"name": "Bandit Guard", "deck_name": "Guard" }
+            ,   {"name": "Ancient Artillery", "deck_name": "Ancient Artillery" }
+            ]
+        },
+        { name: "#3 Unreliable medicine"
+        , decks:
+            [   {"name": "Giant Viper", "deck_name": "Giant Viper" }
+            ,   {"name": "Earth Demon", "deck_name": "Earth Demon" }
+            ,   {"name": "Vermling Scout", "deck_name": "Scout" }
+            ,   {"name": "Vermling Shaman", "deck_name": "Shaman" }
+            ]
+        },
+        { name: "#4 Unlikely Allies"
+        , decks:
+            [   {"name": "Giant Viper", "deck_name": "Giant Viper" }
+            ,   {"name": "Vermling Scout", "deck_name": "Scout" }
+            ]
+        },
+        { name: "#5 The Sun Spire"
+        , decks:
+            [   {"name": "Vermling Scout", "deck_name": "Scout" }
+            ,   {"name": "Sun Demon", "deck_name": "Sun Demon" }
+            ,   {"name": "Black Imp", "deck_name": "Imp" }
+            ,   {"name": "Vermling Shaman", "deck_name": "Shaman" }
+            ]
+        },
+        { name: "#6 A Ship in a Storm"
+        , decks:
+            [   {"name": "Wind Demon", "deck_name": "Wind Demon" }
+            ,   {"name": "Lurker", "deck_name": "Lurker" }
+            ,   {"name": "Frost Demon", "deck_name": "Frost Demon" }
+            ]
+        },
+        { name: "#7 Arrival in Chains"
+        , decks:
+            [   {"name": "Cave Bear", "deck_name": "Cave Bear" }
+            ,   {"name": "Rending Drake", "deck_name": "Rending Drake" }
+            ,   {"name": "Spitting Drake", "deck_name": "Spitting Drake" }
+            ,   {"name": "Stone Golem", "deck_name": "Stone Golem" }
+            ] // Special, cave bear has 2 extra levels, and HP is (Elite bear)xC/2. Attack +1 2C, +2 3C, +3 4C
+            // Stone golem has 2 extra level, and same HP rules. Range 4 attacks, attacks does 2 damage to any enemy adjacent to the attack. 
+        },
+        { name: "#8 The Doctor's Lab"
+        , decks:
+            [   {"name": "Living Bones", "deck_name": "Living Bones" }
+            ,   {"name": "Ancient Artillery", "deck_name": "Ancient Artillery" }
+            ,   {"name": "Ooze", "deck_name": "Ooze" }
+            ,   {"name": "Stone Golem", "deck_name": "Stone Golem" }
+            ] 
+            // Stone golem has 1 extra level. Will summon an ooze at the end of each turn (even stunned) 
+        },
+        { name: "#9 Skewed Perspective"
+        , decks:
+            [   {"name": "Cultist", "deck_name": "Cultist" }
+            ,   {"name": "Hound", "deck_name": "Hound" }
+            ,   {"name": "Living Spirit", "deck_name": "Living Spirit" }
+            ] 
+            // Cultist summon Living Spirit instead
+        },
+        { name: "#10 Panic Room"
+        , decks:
+            [   {"name": "Night Demon", "deck_name": "Night Demon" }
+            ,   {"name": "Deep Terror", "deck_name": "Deep Terror" }
+            ] 
+        }
+    ];
