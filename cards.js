@@ -161,7 +161,7 @@ DECK_DEFINITONS =
             [ [false, "05", "* %shield% 5", "* %heal% 1", "** Self"]
             , [false, "37", "* %move% +0", "* %attack% +0"]
             , [false, "37", "* %move% +0", "* %attack% +0"]
-            , [false, "42", "* %move% +1", "* %heal% 2"]
+            , [false, "42", "* %move% +1", "* %heal% 2", "** %range% 3"]
             , [true,  "43", "* %move% +0", "* %attack% -1", "** %target% 2", "** %poison%"]
             , [false, "76", "* %move% -1", "* %attack% +1"]
             , [true,  "43", "* %move% +0", "* %attack% -1", "** %target% 2", "** %curse%"]
